@@ -59,6 +59,10 @@ public class BankImpl implements Bank {
         Arrays.fill(released, true);
     }
 
+    public void updateCustomerCount(int _n){
+        n = _n;
+    }
+
     // invoked by a thread when it enters the system;  also records max demand
     public void addCustomer(int threadNum, int[] allocated, int[] maxDemand) {
         for (int i = 0; i < m; ++i){

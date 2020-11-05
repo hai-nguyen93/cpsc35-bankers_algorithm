@@ -11,13 +11,16 @@ import java.util.*;
 public class Factory {
     public static void main(String[] args) {
         String filename = "./src/com/company/infile.txt";
-        int nResources = args.length;
-        int[] resources = new int[nResources];
-        for (int i = 0; i < nResources; i++) { resources[i] = Integer.parseInt(args[i].trim()); }
 
-        Bank theBank = new BankImpl(resources);
-        int[] maxDemand = new int[nResources];
-        int[] allocated = new int[nResources];
+        // read Bank's resource from command line argument (e.g. java Factory 10 5 7)
+//        int nResources = args.length;
+//        int[] resources = new int[nResources];
+//        for (int i = 0; i < nResources; i++) { resources[i] = Integer.parseInt(args[i].trim()); }
+
+//        Bank theBank = new BankImpl(resources);
+//        int[] maxDemand = new int[nResources];
+//        int[] allocated = new int[nResources];
+
         Thread[] workers = new Thread[Customer.COUNT];      // the customers
         int threadNum = 0;
 
@@ -25,6 +28,18 @@ public class Factory {
             File f = new File(filename);
             System.out.println(f.getAbsolutePath());
             Scanner read = new Scanner(f);
+
+            // read Bank's available resource from infile.txt
+            String resource = read.nextLine();
+            String[] r_tokens = resource.split(",");
+            int nResources = r_tokens.length;
+            int[] resources = new int[nResources];
+            for (int i = 0; i < nResources; i++) { resources[i] = Integer.parseInt(r_tokens[i].trim()); }
+            Bank theBank = new BankImpl(resources);
+            int[] maxDemand = new int[nResources];
+            int[] allocated = new int[nResources];
+
+            // read Customers
             while (read.hasNextLine()) {
                 String line = read.nextLine();
                 String[] tokens = line.split(",");
@@ -41,6 +56,7 @@ public class Factory {
 
                 ++threadNum;        //theBank.getCustomer(threadNum);
             }
+            theBank.updateCustomerCount(threadNum);
             read.close();
         } catch (FileNotFoundException fnfe) {
             throw new Error("Unable to find file \"" + filename + "\"");
@@ -48,7 +64,7 @@ public class Factory {
 
         System.out.println("FACTORY: created threads");     // start the customers
 
-        for (int i = 0; i < Customer.COUNT; i++) { workers[i].start(); }
+        for (int i = 0; i < threadNum; i++) { workers[i].start(); }
         System.out.println("FACTORY: started threads");
     }
 }

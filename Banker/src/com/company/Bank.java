@@ -2,6 +2,7 @@ package com.company;
 
 public interface Bank {
     public void addCustomer(int threadNum, int[] maxDemand, int[] allocated);    // add customer to Bank
+    public void updateCustomerCount(int _n);
 
     public void getState();     // outputs available, allocation, max, and need matrices
 

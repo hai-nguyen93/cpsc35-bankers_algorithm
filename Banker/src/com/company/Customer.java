@@ -1,7 +1,7 @@
 package com.company;
 
 public class Customer implements Runnable {
-    public static final int COUNT = 10;    // maximum number of threads
+    public static final int COUNT = 20;    // maximum number of threads
 
     private int numOfResources;     // N different resources
     private int[] maxDemand;        // maximum this thread will demand

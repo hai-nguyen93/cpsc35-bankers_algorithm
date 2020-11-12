@@ -45,10 +45,10 @@ public class Factory {
                 String[] tokens = line.split(",");
 
                 for(int i = 0; i < tokens.length/2; ++i){
-                    allocated[i] = Integer.parseInt(tokens[i]);
+                    allocated[i] = Integer.parseInt(tokens[i].trim());
                 }
                 for(int i = tokens.length/2; i < tokens.length; ++i){
-                    maxDemand[i-nResources] = Integer.parseInt(tokens[i]);
+                    maxDemand[i-nResources] = Integer.parseInt(tokens[i].trim());
                 }
 
                 workers[threadNum] = new Thread(new Customer(threadNum, maxDemand, theBank));

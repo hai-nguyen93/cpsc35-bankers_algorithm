@@ -42,6 +42,7 @@ public class Factory {
             // read Customers
             while (read.hasNextLine()) {
                 String line = read.nextLine();
+                if (line.length()==0) continue;
                 String[] tokens = line.split(",");
 
                 for(int i = 0; i < tokens.length/2; ++i){
